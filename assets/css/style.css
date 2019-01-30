@@ -1,0 +1,21 @@
+
+
+body {
+  background: #C5E1A5;
+}
+
+/*------------------- LOGIN STYLE --------------------------*/
+#login
+{
+
+  margin:20px;
+  padding:20px;
+}
+/*-------------------END OF LOGIN STYLE --------------------------*/
+
+/*------------------- NAVIGATION BAR STYLE --------------------------*/
+#listnav
+{
+  height: 300px;
+}
+/*------------------- NAVIGATION BAR STYLE --------------------------*/
