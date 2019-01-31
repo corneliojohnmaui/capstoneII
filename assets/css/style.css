@@ -4,12 +4,19 @@ body {
   background: #C5E1A5;
 }
 
-/*------------------- LOGIN STYLE --------------------------*/
+/*------------------- LOGIN & REGISTER STYLE --------------------------*/
 #login
 {
 
   margin:20px;
   padding:20px;
+}
+#register
+{
+
+  margin:20px;
+  padding:20px;
+  
 }
 /*-------------------END OF LOGIN STYLE --------------------------*/
 
