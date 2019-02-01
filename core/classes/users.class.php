@@ -23,7 +23,7 @@ class Users extends DbConnection
 		if ($countrow == 1) {
 			//this login var is for session
 			$_SESSION['login'] = true;
-			$_SESSION['id'] = $user_data['id'];
+			$_SESSION['id'] = $user_data['id_users'];
 			$_SESSION['usertype'] = $user_data['user_type'];
 			return true;
 		}
@@ -54,11 +54,31 @@ class Users extends DbConnection
 		return $_SESSION['login'];
 
 	}
+	public function getsessionid(){
+		return $_SESSION['id'];
+
+	}
 	//LOGOUT DESTROY SESSION
 	public function user_logout()
 	{
 		$_SESSION['login'] = FALSE;
 		session_destroy();
+	}
+
+	public function savedata($table,$fields)
+	{
+		$sql ="";
+		$sql .="INSERT INTO ".$table;
+		$sql .=" (".implode(",",array_keys($fields)).") VALUES ";
+		$sql .="('".implode("','",array_values($fields))."')";
+		// print_r($fields);
+		// echo $sql;
+		// print_r($fields);
+		$query =mysqli_query($this->conn,$sql);
+		echo $sql;
+		if ($query) {
+			return true;
+		}
 	}
 
 	

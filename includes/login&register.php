@@ -1,5 +1,10 @@
 <?php 
 	
+	if (isset($_SESSION['id'])) {
+		header("location:home.php");
+	}
+
+	
 	if (isset($_REQUEST['loginbtn'])) {
 
 		extract($_REQUEST);
@@ -82,7 +87,7 @@
 			alert("Enter Password");
 			return false;
 		}else{
-			
+		 
 			
 		}
 		

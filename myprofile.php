@@ -20,21 +20,14 @@ if (isset($_SESSION['usertype'])) {
 ?>
 
 <div class="container-fluid" id="">
-	<?php  if ($utype == "applicant"){ ?>
-	<?php
-	 include 'includes/create_profile.php'; 
-	
-	 ?>
+
 	<a href="home.php?logout=logout">LOGOUT</a>
-	<?php }else{ echo "OTHER USER"; ?>
-	<a href="home.php?logout=logout">LOGOUT</a>
-	<?php } ?>
 
 </div>
 	
-<div>
-
-</div>
+	<div class="container">
+		
+	</div>
 
 
 
