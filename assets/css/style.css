@@ -2,6 +2,7 @@
 
 body {
   /*background: #C5E1A5;*/
+  background: #e5e5e5;
 }
 
 /*------------------- LOGIN & REGISTER STYLE --------------------------*/
@@ -20,9 +21,55 @@ body {
 }
 /*-------------------END OF LOGIN STYLE --------------------------*/
 
-/*------------------- NAVIGATION BAR STYLE --------------------------*/
+/*------------------- TOP NAVIGATION BAR STYLE --------------------------*/
 #listnav
 {
-  height: 300px;
+  /*height: 300px;*/
 }
-/*------------------- NAVIGATION BAR STYLE --------------------------*/
+.navbar
+{
+
+}
+
+/*------------------- END TOP NAVIGATION BAR STYLE --------------------------*/
+
+/*------------------- BODY NAVIGATION BAR STYLE --------------------------*/
+#myprofile .container
+{
+	/*margin-left: 10px !important;
+	margin-right: 10px !important;*/
+}
+
+#myprofile .bodynav
+{
+	
+	padding: 0px;
+	background-color: #f1f1f1;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+    /*border: 1px  black;*/
+}
+#myprofile .bodyresult
+{
+	padding-left: 30px;
+	background-color: #f1f1f1;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+
+}
+#myprofile .li
+{
+	border: none;
+	border-radius: 0px; 
+     border-bottom-right-radius: 0; 
+     border-bottom-left-radius: 0; 
+}
+
+#myprofile .bodyresult label
+{
+	color: #999;
+}
+/*.sticky-top
+{
+	top:10px;
+}*/
+
+/*------------------- BODY NAVIGATION BAR STYLE --------------------------*/

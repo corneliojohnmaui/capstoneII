@@ -80,6 +80,21 @@ class Users extends DbConnection
 			return true;
 		}
 	}
+	public function fetchdata($table){
+
+			$sql = " SELECT * FROM ".$table;
+			$array = array();
+			// echo $sql;
+			$query =mysqli_query($this->conn,$sql);
+
+			// $countrow = $query->num_rows;
+			
+			while ($row = mysqli_fetch_assoc($query)) {
+				$array[] =$row;
+			}
+			return $array;
+
+	}
 
 	
 }
