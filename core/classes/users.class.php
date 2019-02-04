@@ -110,13 +110,28 @@ class Users extends DbConnection
 	}
 	$sql = substr($sql,0,-2);value."' AND ";
 	$sql = " UPDATE ".$table." SET ".$sql. "' WHERE ".$condition."'";
-echo $sql;
+	// echo $sql;
 	if (mysqli_query($this->conn,$sql)) {
 		return true;
 	}
 	
 	
 	}	
+	public function deletedata($table,$where){
+			$sql ="";
+			$condition="";
+
+			foreach ($where as $key => $value) {
+				$condition .= $key ."='".$value. "' AND ";
+			}
+			$condition =substr($condition, 0,-5);
+			$sql = "DELETE FROM ".$table." WHERE ".$condition;
+			echo $sql;
+			if (mysqli_query($this->conn,$sql)) {
+				return true;
+			}
+			// echo $sql;
+	}
 
 	
 }

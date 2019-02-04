@@ -26,14 +26,44 @@ if (isset($_POST['editEducBg'])) {
 	$where = array("id_educ_bg"=>$ideduc);
 	$myarray = array(
 				"school_name"=> $_POST['school_name_edit'],
-				"school_location"=> $_POST['school_loc_edit'],
-				"qualification"=> $_POST['qualification_edit'],
+				"school_location"=> addslashes($_POST['school_loc_edit']),
+				"qualification"=> addslashes($_POST['qualification_edit']),
 				"graduated_year"=> $_POST['grad_year_edit'],
 				"graduated_month"=> $_POST['grad_mont_edit']);
 	// echo $ideduc;
 	$users->updatedata('educational_bg',$where,$myarray);
+	// header('location:education.php?msg=success');
+	echo '<script>swal({	
+			icon: "success",
+			title: "Updated!",
+			text: "Your Information has been modify.!",
+			type: "success"}).then(okay => {
+			if (okay) {
+			window.location.href = "education.php";
+			}
+			});</script>';
+}
+else if(isset($_POST['submitAddEduc'])){
+	
+	$educ_uid = $_POST['educ_uid'];
+	$fields = array(
+				"id_user"=> $educ_uid,
+				"school_name"=> $_POST['school_name'],
+				"school_location"=> $_POST['school_name'],
+				"qualification"=> $_POST['qualification'],
+				"graduated_year"=> $_POST['grad_year'],
+				"graduated_month"=> $_POST['grad_mont'],
+				"field_study"=> $_POST['field_study']);
+
+	$result = $users->savedata("educational_bg",$fields);
+	header('location:education.php?msg=success');		
+}else if(isset($_POST['idedu'])) {
+	
+	$ideduc = $_POST['idedu'];
+	$where = array("id_educ_bg"=>$ideduc);
+	$result = $users->deletedata("educational_bg",$where);
+	// echo "WASSAP";
 	// header('location:education.php');
-	// echo $ideduc;
 }
 
 ?>
@@ -54,7 +84,7 @@ if (isset($_POST['editEducBg'])) {
 			  <a href="" class="list-group-item">Experience</a>
 			  <a href="" class="list-group-item active">Education</a>
 			  <a href="" class="list-group-item">Skills</a>
-			  <a href="" class="list-group-item">Additional Info</a>
+			  <a href="additional_info.php"  class="list-group-item">Additional Info</a>
 			  <a href="" class="list-group-item">Experience</a>
 
 			  <!-- <a href="myprofile.php?l=22"><li class="list-group-item">Education</li></a>
@@ -83,17 +113,17 @@ if (isset($_POST['editEducBg'])) {
 	
 			
 		<div class="col-sm-9 bodyresult float-right" style="background-color: white;  margin:5px;"> 
-			
+					
 					<!-- ------------- ADD EDUCATION BG ------------------- -->
 					<?php 
-
 					$myrow2 = $users->fetchdata('educational_bg WHERE id_user = "'.$uid.'"');
 					foreach ($myrow2 as $row2) {
-					
+						$educid = $row2['id_user'];
+					}
 					?>
-					
+
 					<div class="row ml-3 mt-3">
-						<div class="col-sm-12"><h5>Education<button class="addeduc float-right" data-toggle="collapse" data-target="#demo">Collapsible</button></h5>
+						<div class="col-sm-12"><h5>Education<button class="addeduc float-right" data-toggle="collapse" data-target="#demo">+</button></h5>
 							
 						<hr>
 						</div>
@@ -102,6 +132,7 @@ if (isset($_POST['editEducBg'])) {
 	
 							<div class="form-group row">							
 							    <div class="col-sm-4">
+							    	<input type="hidden" name="educ_uid" id="educ_uid" value="<?php echo 	$educid;  ?>">
 							  		<label for="school_name"> University/Institute*</label>
 							  	</div>	
 							    <div class="col-sm-7">
@@ -179,17 +210,21 @@ if (isset($_POST['editEducBg'])) {
 						</div>
 						</form>
 						<!-- -------------  END OF ADD EDUCATION BG ------------------- -->
-
+						<?php 
+							if (isset($_GET['educ'])) {
+								$ideducbg = $_GET['educ'];
+								
+						?>
 						<!-- ----------------- EDIT EDUCATION BG ------------------- -->
-						<div class="col-sm-12" id="edit_educ_bg" style="display: none;">
+						<div class="col-sm-12" id="edit_educ_bg" style="">
 							<?php 
-							$myrow2 = $users->fetchdata('educational_bg WHERE id_user = "'.$uid.'"');
+							$myrow2 = $users->fetchdata('educational_bg WHERE id_educ_bg = "'.$ideducbg.'"');
 							foreach ($myrow2 as $row2) {
 
 							?>
 
 							<form method="post">
-								<input type="hidden" value="<?php echo $row2['id_educ_bg'];?>" name="ideduc">
+								<input type="text" value="<?php echo $row2['id_educ_bg'];?>" name="ideduc">
 
 								<div class="form-group row">
 									<div class="col-sm-4">
@@ -281,12 +316,25 @@ if (isset($_POST['editEducBg'])) {
 
 							</form>
 
-						<?php } //end of for each ?>
+							<?php } //end of for each ?>
 						</div>
+						<?php } ?>
 						<!-- ------------- END OF EDUCATION BG ------------------- -->
 
+
+					</div>
+
+					<?php 
+					if (!isset($_GET['educ'])) {
+						
+
+					$myrow2 = $users->fetchdata('educational_bg WHERE id_user = "'.$uid.'"');
+					foreach ($myrow2 as $row2) {
+						$educid = $row2['id_user'];
+					?>
 						<!-- ------------- VIEW EDUCATION BG ------------------- -->
 						<div class="col-sm-12" id="view_educ_bg">
+							<form method="get">
 							<div class="row">
 								<div class="col-sm-2 mt-2">
 									<label><?php echo ucfirst($row2['graduated_month']." ".$row2['graduated_year']); ?></label>
@@ -296,16 +344,18 @@ if (isset($_POST['editEducBg'])) {
 									<p><?php echo ucwords($row2['qualification'])." ".ucwords($row2['field_study'])." | ".ucwords($row2['school_location']); ?></p>
 								</div>	
 								<div class="col-sm-2">
-									<i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" id="editbg"> </i>
+									<a href="education.php?educ=<?php echo $row2['id_educ_bg']; ?>"><i class="fa fa-pencil-square-o fa-lg editbg" aria-hidden="true" id=""> </i></a>
+									<i class="fa fa-trash fa-lg delEduc" aria-hidden="true" id="<?php echo $row2['id_educ_bg']; ?>"> </i>
 								</div>
 							</div>
+							</form>
 						</div>
 						<!-- ------------- END OF VIEW EDUCATION BG ------------------- -->
-					</div>
+					<?php }
+					} ?>
 
-				</div>
-				<?php } ?> 
-
+		</div>
+			
 
 			    	
 					
@@ -316,7 +366,25 @@ if (isset($_POST['editEducBg'])) {
 
 	</div>
 	
-
+<div class="modal" id="deletemodal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="delYes" type="button" class="btn btn-primary"> Yes </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php 
 include 'includes/footer.php';
@@ -340,14 +408,84 @@ include 'includes/footer.php';
 		// 		});
 		// });
 
-		//EDIT BUTTON
-		$("#editbg").click(function(){
-			$('#view_educ_bg').hide();
-			$('.addeduc').hide();
-			$('#edit_educ_bg').show();
+		//SHOW MODAL BUTTON
+		$(".delEduc").click(function(){
+			swal({
+             title: "Are you sure?",
+             text: "Once deleted, you will not be able to recover this imaginary file!",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+           })
+		      .then((willDelete) => {
+		           if (willDelete) {
+						var idedu = $(this).attr('id');
+						$.post("education.php",{
+							idedu:idedu
+						},
+						function(data){
+							// $('#deletemodal').modal('hide');
+							// $('#edit_educ_bg').val(" ");
+							// $('#edit_educ_bg').html(data);
+
+							// swal("Deleted!", "Your imaginary file has been deleted.", "success");
+
+							swal({ 
+							icon: "success",
+							title: "Deleted!",
+							text: "Your Information has been deleted.!",
+							type: "success"}).then(okay => {
+							if (okay) {
+							window.location.href = "education.php";
+							}
+							});
+
+							// if ('.swall-button') {
+
+							// 	  window.location.href = "education.php";
+							
+							// }
+							
+							// alert(idedu)
+						});
+		           } else {
+		                  swal("Your imaginary file is safe!");
+		       }
+		    });
+			// $('#deletemodal').modal('show');
+
+			// swal({
+			//   title: "Are you sure?",
+			//   text: "Your will not be able to recover this imaginary file!",
+			//   type: "warning",
+			//   showCancelButton: true,
+			//   confirmButtonClass: "btn-danger",
+			//   confirmButtonText: "Yes, delete it!",
+			//   closeOnConfirm: false
+			// },
+			// function(){
+			  // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+			// });
+			// swal("Good job!", "You clicked the button!", "success");
+			// alert()
+		});
+		$("#delYes").click(function(){
+
+			var idedu = $(this).attr('id');
+				$.post("education.php",{
+					idedu:idedu
+				},
+				function(data){
+					$('#deletemodal').modal('hide');
+					// $('#edit_educ_bg').val(" ");
+					// $('#edit_educ_bg').html(data);
+					swal("Deleted!", "Your imaginary file has been deleted.", "success");
+				});
+
 		});
 		//CANCEL EDIT BUTTON
 		$("#canceledit").click(function(){
+			history.back(1);
 			$('#edit_educ_bg').hide();
 			$('#view_educ_bg').show();
 			$('.addeduc').show();

@@ -36,7 +36,7 @@ if (isset($_SESSION['usertype'])) {
 			  <a href=""  class="list-group-item">Experience</a>
 			  <a href="education.php"  class="list-group-item">Education</a>
 			  <a href=""  class="list-group-item">Skills</a>
-			  <a href=""  class="list-group-item">Additional Info</a>
+			  <a href="additional_info.php"  class="list-group-item">Additional Info</a>
 			  <a href=""  class="list-group-item">Experience</a>
 
 			  <!-- <a href="myprofile.php?l=22"><li class="list-group-item">Education</li></a>
@@ -67,7 +67,7 @@ if (isset($_SESSION['usertype'])) {
 		<div class="col-sm-9 bodyresult float-right" style="background-color: white;  margin:5px;"> 
 			
 					<?php 					
-					$myrow = $users->fetchdata('users LEFT JOIN educational_bg educ ON users.id_users = educ.id_user LEFT JOIN additional_info addinfo ON users.id_users = addinfo.id_user WHERE  id_users = "'.$uid.'"');
+					$myrow = $users->fetchdata('users LEFT JOIN educational_bg educ ON users.id_users = educ.id_user LEFT JOIN additional_info addinfo ON users.id_users = addinfo.id_user WHERE id_users = "'.$uid.'" limit 1');
 					foreach ($myrow as $row) {
 					
 					?>
@@ -88,7 +88,7 @@ if (isset($_SESSION['usertype'])) {
 				    <!-- -------------EDUCATION BG ------------------- -->
 					<?php 
 
-					$myrow2 = $users->fetchdata('educational_bg WHERE id_user = "'.$uid.'"');
+					$myrow2 = $users->fetchdata('educational_bg WHERE id_user = "'.$uid.'" limit 1');
 					foreach ($myrow2 as $row2) {
 					
 					?>
