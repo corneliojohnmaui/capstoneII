@@ -95,6 +95,28 @@ class Users extends DbConnection
 			return $array;
 
 	}
+	public function updatedata($table,$where,$fields){
+	$sql ="";
+	$condition="";
+	foreach ($where as $key => $value) {
+		$condition .= $key. "='".$value."' AND";
+	}
+	$condition =substr($condition,0,-5);
+	foreach ($fields as $key => $value) {
+		//UPDATE FUNCTION QUERY
+		//UPDATE table SET lastname='', firstname=''...
+		$sql .= $key . "='".$value."',";
+
+	}
+	$sql = substr($sql,0,-2);value."' AND ";
+	$sql = " UPDATE ".$table." SET ".$sql. "' WHERE ".$condition."'";
+echo $sql;
+	if (mysqli_query($this->conn,$sql)) {
+		return true;
+	}
+	
+	
+	}	
 
 	
 }

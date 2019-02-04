@@ -157,7 +157,15 @@ if (isset($_POST['save'])) {
 
 				    <div class="form-group">
 				      <label for="qualification"> Qualification*
-				      <input type="number" class="form-control" id="qualification" placeholder="Enter Qualification" name="qualification"></label>
+				      <select name="qualification" id="qualification" class="form-control">
+				       		<option> 	</option>
+				       		<option value="High School Diploma"> High School Diploma </option>
+				       		<option value="Vocational Diploma/Short Course Certificate"> Vocational Diploma/Short Course Certificate</option>
+				       		<option value="Bachelor's /College Degree"> Bachelor's /College Degree</option>
+				       		<option value="Post Graduate Diploma / Master's Degree"> Post Graduate Diploma / Master's Degree </option>
+				       		<option value="Professional License (Passed Board/Bar/Professional License Exam)"> Professional License (Passed Board/Bar/Professional License Exam)</option>
+				       		<option value="Doctorate Degree"> Doctorate Degree </option>
+				       </select>
 				    </div>
 
 				    <div class="form-group">

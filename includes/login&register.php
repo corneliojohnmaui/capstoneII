@@ -97,7 +97,7 @@
 <div class="container text-center">
 	
 	<div class="form-group bg-white" id="login">
-	  <h2> LOGIN <p id="msgtxt"><?php  echo $msg; ?> </p></h2>
+	  <h2> LOGIN <p id="msgtxt"><!-- <?php  echo $msg; ?>  --></p></h2>
 	  <form action="" method="post" name="login">
 	    <div class="form-group">
 	      <label for="email" class="text-left">Email:

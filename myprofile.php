@@ -29,37 +29,44 @@ if (isset($_SESSION['usertype'])) {
 	<div class="container"  id="myprofile" style="">
 		<div class="row ">
 
-		<div class="col-sm-3 h-100 bodynav sticky-top" style="background-color: transparent; margin:5px;">
+		<div class="col-sm-2 h-100 bodynav sticky-top" style="background-color: transparent; margin:5px;">
 			<form method="get">
-			 <!-- <ul class="list-group list-group-flush">
+			 <ul class="list-group list-group-flush">
 			  <a href=""><li class="list-group-item"><img src="assets/images/defaultimgpic.jpeg" style="width: 60px; height: 60px;"> Profile</li></a>
-			  <a href=""><li class="list-group-item">Experience</li></a>
-			  <a href="myprofile.php?l=22"><li class="list-group-item">Education</li></a>
+			  <a href=""  class="list-group-item">Experience</a>
+			  <a href="education.php"  class="list-group-item">Education</a>
+			  <a href=""  class="list-group-item">Skills</a>
+			  <a href=""  class="list-group-item">Additional Info</a>
+			  <a href=""  class="list-group-item">Experience</a>
+
+			  <!-- <a href="myprofile.php?l=22"><li class="list-group-item">Education</li></a>
 			  <a href=""><li class="list-group-item">Skills</li></a>
 			  <a href=""><li class="list-group-item">Languages</li></a>
 			  <a href=""><li class="list-group-item">Additional Info</li></a>
 			  <a href=""><li class="list-group-item">About Me</li></a>
 			  <a href=""><li class="list-group-item">Uploaded Resume </li></a>
-			  <a href=""><li class="list-group-item">Privacy Settings</li></a>
+			  <a href=""><li class="list-group-item">Privacy Settings</li></a> -->
 			
-			</ul> -->
-			<div class="list-group" id="list-tab" role="tablist">
-		      <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#home" role="tab" aria-controls="home">Home</a>
+			</ul>
+			</form>
+<!-- 			<div class="list-group" id="list-tab" role="tablist">
+		      <a class="list-group-item list-group-item-action " id="list-home-list" data-toggle="list" href="#home" role="tab" aria-controls="home">Home</a>
 		      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Experience</a>
-		      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#education" role="tab" aria-controls="messages">Education</a>
+		      <a class="list-group-item list-group-item-action active" id="list-messages-list" data-toggle="list" href="#education" role="tab" aria-controls="messages">Education</a>
+		      <a class="list-group-item list-group-item-action " id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Skills</a>
+		      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Languages</a>
+		      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Additional Info</a>
+		      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">About Me</a>
+		      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Uploaded Resume</a>
 		      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
 		    </div>
-			</form>
+			</form> -->
 		</div>
 	
 			
-		<div class="col-sm-8 bodyresult float-right" style="background-color: white;  margin:5px;"> 
+		<div class="col-sm-9 bodyresult float-right" style="background-color: white;  margin:5px;"> 
 			
-			<div class="tab-content" id="nav-tabContent">
-
-		    	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="list-home-list">
-
-				    <?php 					
+					<?php 					
 					$myrow = $users->fetchdata('users LEFT JOIN educational_bg educ ON users.id_users = educ.id_user LEFT JOIN additional_info addinfo ON users.id_users = addinfo.id_user WHERE  id_users = "'.$uid.'"');
 					foreach ($myrow as $row) {
 					
@@ -149,7 +156,7 @@ if (isset($_SESSION['usertype'])) {
 
 					<!-- ----------------- ABOUT ME --------------------- -->
 					<?php 
-					$myrow3 = $users->fetchdata('users WHERE id_user = "'.$uid.'"');
+					$myrow3 = $users->fetchdata('users WHERE id_users = "'.$uid.'"');
 					foreach ($myrow2 as $row3) {
 					
 					?>
@@ -175,52 +182,50 @@ if (isset($_SESSION['usertype'])) {
 					</div>
 					<?php } ?> 
 
-		     	</div>
 
-			    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-			    	..bbbbbbbbbb.
-
-
-			    </div>
-
-			    <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="list-messages-list">..ccccccccccccc.
-
-			    	 <!-- -------------EDUCATION BG ------------------- -->
-					<?php 
-
-					$myrow2 = $users->fetchdata('educational_bg WHERE id_user = "'.$uid.'"');
-					foreach ($myrow2 as $row2) {
+			    	
 					
-					?>
-					<hr>
-					<div class="row ml-3">
-
-						<div class="col-sm-12"><h5>Education</h5></div>
-						<div class="col-sm-3 mt-2">
-							<label><?php echo ucfirst($row2['graduated_month']." ".$row2['graduated_year']); ?></label>
-						</div>
-						<div class="col-sm-9">
-							<h5><b><?php echo ucwords($row2['school_name']); ?></b></h5>
-							<p><?php echo ucwords($row2['qualification'])." ".ucwords($row2['field_study'])." | ".ucwords($row2['school_location']); ?></p>
-						</div>	
-					</div>
-					<?php } ?> 
 
 
-			    </div>
-
-			    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">..dddddddddddddd.
-
-			    </div>
-
-		    </div>
+		</div>
 		</div>
 
-	 	</div>
 	</div>
-
+	
 
 
 <?php 
 include 'includes/footer.php';
 ?>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		//show editable eduction info
+		// $('#editbg').click(function(){
+		// 	 $('#edit_educ_bg').show();
+		// 	var action = 'edit';
+		// 	$('#view_educ_bg').hide();
+		// 	$('.addeduc').hide();
+		// 	// alert('dads');
+		// 	$.post("add_view_profile.php",{
+		// 			action:action
+		// 		},
+		// 		function(data){
+		// 			// $('#edit_educ_bg').val(" ");
+		// 			$('#edit_educ_bg').html(data);
+		// 		});
+		// });
+
+		// $("#editbg").click(function(){
+		// $('.addeduc').hide();
+		// });
+
+		// $(document).delegate("#canceledit","click", function(){
+		// event.preventDefault(); 
+		// 	    $('#edit_educ_bg').hide();
+		// 	    $('#view_educ_bg').show();
+		// 	    $('.addeduc').show();
+		// });
+
+	});
+</script>

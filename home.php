@@ -22,6 +22,7 @@ if (isset($_SESSION['usertype'])) {
 <div class="container-fluid" id="">
 	<?php  if ($utype == "applicant"){ ?>
 	<?php
+	
 	 include 'includes/create_profile.php'; 
 	
 	 ?>
