@@ -86,3 +86,25 @@ body {
 {
   text-align: right;
 }*/
+
+ /*--------------------- FORM WIZARD STYLE --------------------*/
+.continuecp_con
+{
+  max-width: 860px;
+}
+
+#continue_cp .card-body
+{
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+    @media(min-width: 1200px)
+    {
+      #continue_cp .container
+      {
+        max-width: 960px;
+      }
+    }
+
+ /*--------------------- END OF FORM WIZARD STYLE --------------------*/}

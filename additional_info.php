@@ -66,7 +66,7 @@ if (isset($_SESSION['usertype'])) {
 			<form method="get">
 			 <ul class="list-group list-group-flush">
 			  <a href=""><li class="list-group-item"><img src="assets/images/defaultimgpic.jpeg" style="width: 60px; height: 60px;"> Profile</li></a>
-			  <a href=""  class="list-group-item">Experience</a>
+			  <a href="work_experience.php"  class="list-group-item">Experience</a>
 			  <a href="education.php"  class="list-group-item">Education</a>
 			  <a href=""  class="list-group-item">Skills</a>
 			  <a href="additional_info.php"  class="list-group-item active">Additional Info</a>
@@ -124,7 +124,7 @@ if (isset($_SESSION['usertype'])) {
 											  <div class="input-group-prepend">
 											    <span class="input-group-text" id="basic-addon1">PHP</span>
 											  </div>
-											 <input type="text" class="form-control" id="exp_sal" name="exp_sal" value="<?php echo ucwords($row2['expected_salary']); ?>">
+											 <input type="text" class="form-control" id="exp_sal" name="exp_sal" value="<?php echo ucwords($row2['expected_salary']); ?>" pattern="[0-9]*">
 											</div>
 									    </div>
 									</div>

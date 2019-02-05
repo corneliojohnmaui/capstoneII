@@ -22,13 +22,25 @@
 		$result = $users->register_user($firstname,$lastname,$contact,$emailreg,$pwdreg,$usertype);
 		if ($result) {
 
-			sleep(3);
+			echo '<script>swal({	
+			icon: "success",
+			title: "Registered!",
+			text: "Registered Successfully!",
+			type: "success"}).then(okay => {
+			if (okay) {
+			window.location.href = "continue_create_profile.php";
+			}
+			});</script>';
 
 			
 		}else{
 			
-			$msg = "Registration Failed";
-			echo "<script>alertLogReg();</script>";
+			// $msg = "Registration Failed";
+			echo '<script>swal({	
+			icon: "error",
+			title: "Erorr Registration",
+			text: "Registration Failed",
+			type: "danger"});</script>';
 		}
 		
 	}
@@ -117,7 +129,7 @@
 	</div>
 	<br>
 	<div class="form-group bg-white" id="register">
-	  <h2> REGISTER  <?php  echo $msg; ?></h2>
+	  <h2> REGISTER  <?php ?></h2>
 	  <form action="" method="post" name="register">
 
 	  	<div class="form-group">

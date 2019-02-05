@@ -25,6 +25,7 @@ class Users extends DbConnection
 			$_SESSION['login'] = true;
 			$_SESSION['id'] = $user_data['id_users'];
 			$_SESSION['usertype'] = $user_data['user_type'];
+			$_SESSION['status'] = $user_data['status'];
 			return true;
 		}
 		else
@@ -34,16 +35,16 @@ class Users extends DbConnection
 	}
 	public function register_user($firstname,$lastname,$contact,$emailreg,$pwdreg,$usertype)
 	{
-		$password = md5($password);
+		$password = md5($pwdreg);
 		$sql = "SELECT * FROM users WHERE email='$emailreg'";
 		$check = $this->conn->query($sql);
 		$countrow = $check->num_rows;	
-		echo $sql;
+		// echo $sql;
 		//insert if no result from db
 		if ($countrow == 0) {
-			// $sql1="INSERT INTO users SET firstname='$firstname', lastname='$lastname', contact_num ='$contact', email='$emailreg', password='$pwdreg', user_type='$usertype'";
+			$sql1="INSERT INTO users SET firstname='$firstname', lastname='$lastname', contact_num ='$contact', email='$emailreg', password='$pwdreg', user_type='$usertype', status='notactive'";
 			$result = "inserted";
-			// $result= mysqli_query($this->conn,$sql1) or die(mysqli_connect_errno()."Data cannot insert inside table");
+			$result= mysqli_query($this->conn,$sql1) or die(mysqli_connect_errno()."Data cannot insert inside table");
 			// echo $sql1;
 			return $result;
 		}
@@ -75,7 +76,7 @@ class Users extends DbConnection
 		// echo $sql;
 		// print_r($fields);
 		$query =mysqli_query($this->conn,$sql);
-		echo $sql;
+		// echo $sql;
 		if ($query) {
 			return true;
 		}
@@ -126,7 +127,7 @@ class Users extends DbConnection
 			}
 			$condition =substr($condition, 0,-5);
 			$sql = "DELETE FROM ".$table." WHERE ".$condition;
-			echo $sql;
+			// echo $sql;
 			if (mysqli_query($this->conn,$sql)) {
 				return true;
 			}

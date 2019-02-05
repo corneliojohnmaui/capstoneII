@@ -81,8 +81,8 @@ else if(isset($_POST['submitAddEduc'])){
 			<form method="get">
 			 <ul class="list-group list-group-flush">
 			  <a href="myprofile.php"><li class="list-group-item"><img src="assets/images/defaultimgpic.jpeg" style="width: 60px; height: 60px;"> Profile</li></a>
-			  <a href="" class="list-group-item">Experience</a>
-			  <a href="" class="list-group-item active">Education</a>
+			  <a href="work_experience.php" class="list-group-item">Experience</a>
+			  <a href="education.php" class="list-group-item active">Education</a>
 			  <a href="" class="list-group-item">Skills</a>
 			  <a href="additional_info.php"  class="list-group-item">Additional Info</a>
 			  <a href="" class="list-group-item">Experience</a>
