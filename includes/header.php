@@ -1,3 +1,9 @@
+<?php 
+if (isset($_SESSION['usertype'])) {
+	$utype = $_SESSION['usertype'];
+	$status = $_SESSION['status'];
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,31 +23,74 @@
 </head>
 <body class="m">
 <div class="">
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light ">
 	  <a class="navbar-brand" href="#">Navbar</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
+	  
 	  
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	  <div id="listnav">
 	    <ul class="navbar-nav text-center">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#">Features</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#">Pricing</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link disabled" href="#">Disabled</a>
-	      </li>
-	    </ul>
-	  </div>
-	  </div>
 
+	      <?php  if ($utype == "applicant" || $utype !="employer") { ?>
+	      <li class="nav-item">
+	        <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Search Jobs</a>
+	      </li>
+	  	  <?php } ?>
+	      <?php 
+	      if ($utype == "applicant") {
+	      ?>
+	      <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	         MyJuanApply
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	          <a class="dropdown-item" href="myprofile.php">My Profile</a>
+	          <a class="dropdown-item" href="#">Online Applications</a>
+	          <a class="dropdown-item" href="#">Interview Invitation</a>
+	        </div>
+	      </li>
+
+	     <?php } ?>
+	      <?php  if ($utype == "applicant" || $utype !="employer") { ?>
+	     <li class="nav-item">
+	        <a class="nav-link" href="#"> Company Profiles</a>
+	      </li>
+	  		<?php } ?>
+	      <?php 
+	      if ($utype == "employer") {
+	      ?>
+	      <li class="nav-item">
+	        <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#"> Job Ads</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#"> Talent Jobs</a>
+	      </li>
+	  	  <?php } ?>
+	    </ul>
+	    
+	  </div>
+	  </div>
+<!-- 	  <ul class="navbar-nav text-right float-right mr-5">
+	     <li class="nav-item dropdown float-right">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	         NAME
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	          <a class="dropdown-item" href="#"> LOGOUT </a>
+	         
+	        </div>
+	      </li>
+	    </ul> -->
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
 	</nav>
 </div>
 

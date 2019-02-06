@@ -219,7 +219,7 @@ if (isset($_SESSION['usertype'])) {
 						<div class="col-sm-12" id="view_exp_level">
 							<div class="row">
 								<div class="col-sm-3 mt-2">
-									<input type="text" name="cmp_nam" id="cmp_nam" value="<?php echo $comp_name; ?>">
+									<input type="hidden" name="cmp_nam" id="cmp_nam" value="<?php echo $comp_name; ?>">
 									<label>Experience Level</label>
 								</div>
 								<div class="col-sm-5 mt-2">
@@ -260,7 +260,7 @@ if (isset($_SESSION['usertype'])) {
 							
 							<div class="row">
 								<div class="col-sm-3 mt-2">
-									<input type="text" name="cmp_nam" id="cmp_nam" value="<?php echo $comp_name; ?>">
+									<input type="hidden" name="cmp_nam" id="cmp_nam" value="<?php echo $comp_name; ?>">
 									<label>
 									<?php echo $row3['joined_month']." ".$row3['joined_year']." - ".$row3['joined_month_to']." ".$row3['joined_year_to']; ?></label>
 								</div>
