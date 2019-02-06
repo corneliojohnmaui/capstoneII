@@ -24,15 +24,32 @@ if (isset($_SESSION['usertype'])) {
 <body class="m">
 <div class="">
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light ">
-	  <a class="navbar-brand" href="#">Navbar</a>
+	<nav class="navbar navbar-expand-lg navbar-light">
+	  <a class="navbar-brand" href="#">JuanApplyPH</a>
 	  
 	  
 	  <div class="collapse navbar-collapse" id="navbarNav">
 	  <div id="listnav">
 	    <ul class="navbar-nav text-center">
 
-	      <?php  if ($utype == "applicant" || $utype !="employer") { ?>
+	    <?php 
+	    if (!isset($_SESSION['usertype'])) {        
+	    ?>
+	    <li class="nav-item">
+	        <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
+	    </li>
+	    <li class="nav-item">
+	        <a class="nav-link" href="#">Search Jobs</a>
+	    </li>
+	    <li class="nav-item">
+	        <a class="nav-link" href="#"> Company Profiles</a>
+	    </li>
+	    <?php  } ?>
+
+	      <?php  
+	      if (isset($_SESSION['usertype'])) {
+	     
+	      if ($utype == "applicant") { ?>
 	      <li class="nav-item">
 	        <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
 	      </li>
@@ -55,7 +72,7 @@ if (isset($_SESSION['usertype'])) {
 	      </li>
 
 	     <?php } ?>
-	      <?php  if ($utype == "applicant" || $utype !="employer") { ?>
+	      <?php  if ($utype == "applicant") { ?>
 	     <li class="nav-item">
 	        <a class="nav-link" href="#"> Company Profiles</a>
 	      </li>
@@ -72,9 +89,12 @@ if (isset($_SESSION['usertype'])) {
 	      <li class="nav-item">
 	        <a class="nav-link" href="#"> Talent Jobs</a>
 	      </li>
-	  	  <?php } ?>
+	  	  <?php } } ?>
 	    </ul>
-	    
+		   <!--  <form class="form-inline my-2 my-lg-0">
+		      <input class="form-control mr-sm-2" type="search" placeholder="Search">
+		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		    </form> -->	    
 	  </div>
 	  </div>
 <!-- 	  <ul class="navbar-nav text-right float-right mr-5">

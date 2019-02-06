@@ -21,54 +21,73 @@ if (isset($_SESSION['usertype'])) {
 
 <?php 
 
-
+// if (isset($_POST['post'])) {
+//   // echo "<script> alert('post') </script>";
+// }
 
 if (isset($_POST['save'])) {
+  // echo "<script> alert('save') </script>";
   // $uid = 'dasda';
-  // $userid = $users->getsessionid();
-  // $arrayname = array(
-  //       "id_user"=> $userid,
-  //       "nationality"=>$_POST['nationality'],
-  //       "address"=>$_POST['address'],
-  //       "expected_salary"=>$_POST['salaryexp'],
-  //       "preferred_location"=>$_POST['preferredloc']);
+  $userid = $users->getsessionid();
+//COMPANY INFO
+  $arrayname = array(
+        "id_user"=> $userid,
+        "industry"=>addslashes($_POST['industry']),
+        "company_type"=>$_POST['company_type'],
+        "registration_num"=>$_POST['reg_number'],
+        "business_add"=>addslashes($_POST['busi_add']),
+        "city_business"=>addslashes($_POST['city']),
+        "postcode"=>$_POST['postcode']);
 
-  // $arrayname2 = array("id_user"=> $userid,
-  //       "school_name"=>$_POST['school_name'],
-  //       "school_location"=>addslashes($_POST['school_loc']),
-  //       "qualification"=>addslashes($_POST['qualification']),
-  //       "field_study"=>addslashes($_POST['field_study']),
-  //       "graduated_year"=>$_POST['grad_year'],
-  //       "graduated_month"=>$_POST['grad_mont']);
+  $result = $users->savedata("company_info",$arrayname);
+ //JOB DETAILS
+  $arrayname2 = array("id_user"=> $userid,
+        "position_title"=>addslashes($_POST['pos_title']),
+        "employment_type"=>addslashes($_POST['employ_type']),
+        "position_level"=>addslashes($_POST['pos_lvl']),
+        "work_location"=>addslashes($_POST['work_loc']),
+        "month_sal_min"=>$_POST['mot_sal_min'],
+        "month_sal_min"=>$_POST['mot_sal_max'],
+        "display_ad"=>$_POST['display_ad'],
+        "specialization_jb"=>addslashes($_POST['job_speci']));
 
+  $result2 = $users->savedata("job_details",$arrayname2);
+//JOB REQUIREMENTS
+    $arrayname3 = array(
+        "id_user"=> $userid,
+        "educ_level"=>addslashes($_POST['educ_level']),
+        "field_study"=>addslashes($_POST['field_study_ad']),
+        "years_exp"=>$_POST['yr_exp'],
+        "skills"=>addslashes($_POST['skills']));
+    $result3 = $users->savedata("job_requirements",$arrayname3);
+//JOB DESCRIPTION
+      $arrayname4 = array(
+        "id_user"=> $userid,
+        "job_desc"=>addslashes($_POST['jobdesc']));
+    $result4 = $users->savedata("job_description",$arrayname4);
 
-
-
-
-  // $result = $users->savedata("additional_info",$arrayname);
-  // $result2 = $users->savedata("educational_bg",$arrayname2);
 
   
-  // if ($result && $result2 && $result4 ) {
-  //   echo '<script>swal({  
-  //     icon: "success",
-  //     title: "Done Creating Profile",
-  //     text: "You can now start Applying !",
-  //     type: "success"}).then(okay => {
-  //     if (okay) {
-  //     window.location.href = "myprofile.php";
-  //     }
-  //     });</script>';
+  if ($result && $result2 && $result3 && $result4 ) {
+    echo '<script>swal({  
+      icon: "success",
+      title: "Done Creating Profile And Job Ad",
+      
+      type: "success"}).then(okay => {
+      if (okay) {
+      window.location.href = "home.php";
+      }
+      });</script>';
 
-  //   // header('location:myprofile.php?msg=success');
-  // }else{
-  //   // header('location:home.php?msg=failed');
-  //   echo '<script>swal({  
-  //     icon: "error",
-  //     title: "Erorr Creating Profile",
-  //     text: "",
-  //     type: "danger"});</script>';;
-  // }
+    // header('location:myprofile.php?msg=success');
+  }else{
+    // header('location:home.php?msg=failed');
+    echo '<script>swal({  
+      icon: "error",
+      title: "Erorr Creating Profile And Job Ad",
+      text: "",
+      type: "danger"});</script>';;
+  }
   
 }
 
@@ -156,7 +175,7 @@ if (isset($_POST['save'])) {
               <label for="industry"> Industry *</label>
               </div>
               <div class="col-sm-5">
-                 <input type="text" class="form-control" id="nationality" name="nationality">
+                 <input type="text" class="form-control" id="industry" name="industry">
               </div>
           </div>            
             <div class="form-group row">
@@ -287,15 +306,21 @@ if (isset($_POST['save'])) {
                   <label for="mot_sal_min"> Monthly Salary*</label>
               </div>
               <div class="col-sm-3">
-                  <input type="number" class="form-control" id="mot_sal_min" name="mot_sal_min">
+                  <input type="number" class="form-control" id="mot_sal_min" name="mot_sal_min" placeholder="Min">
               </div>
               <div class="col-sm-3">
-                   <input type="number" class="form-control" id="mot_sal_max" name="mot_sal_max">
+                   <input type="number" class="form-control" id="mot_sal_max" name="mot_sal_max"placeholder="Max">
               </div>
           </div>
 
-          <div class="form-group row ml-5">
-            <input type="checkbox" name="display_ad" id="display_ad">  Display salary on ad to attract the right candidates
+          <div class="form-group row ">
+             <div class="col-sm-3">
+                  <label for=""></label>
+              </div>
+              <div class="col-sm-5">
+                <input type="checkbox" name="display_ad" id="display_ad">  Display salary on ad to attract the right candidates
+              </div>
+            
           </div>
                           
         
@@ -347,16 +372,16 @@ if (isset($_POST['save'])) {
 
           <div class="form-group row">
             <div class="col-sm-3">
-                <label for="skilss"> Skills </label>
+                <label for="skills"> Skills </label>
             </div>
               <div class="col-sm-5">
-                 <input type="text" class="form-control" id="skilss" name="skilss">
+                 <input type="text" class="form-control" id="skills" name="skills">
               </div>
           </div>
         
           <div class="form-group row">
             <div class="col-sm-3">
-                <label for="yr_exp"> Job Description </label>
+                <label for="jobdesc"> Job Description </label>
             </div>
               <div class="col-sm-5">
                 <textarea name="jobdesc" id="jobdesc" class="form-control" rows="8">
@@ -369,8 +394,10 @@ if (isset($_POST['save'])) {
       </div>
       <div class="card-footer text-muted">
          <button type="button" id="back" class="btn btn-dark float-left">Prev</button>
-    
-          <button onclick="return createprofileValidation();" type="submit" id="save" name="save" class="btn btn-dark float-right">Save</button>
+          <button onclick="" type="submit" id="post" name="post" class="btn btn-primary float-right">Post Ad</button>
+          <button onclick="" type="submit" id="save" name="save" class="btn btn-dark float-right">Save</button>
+          
+
     
       </div>
     </div>

@@ -7,7 +7,7 @@ class DbConnection
 
 	public function __construct()
 	{
-		$this->conn = mysqli_connect("localhost","admin","root","juanapplyph");
+		$this->conn = mysqli_connect("localhost","root","","juanapply");
 		if (mysqli_connect_errno()) {
 			echo "Error: DB";
 		}

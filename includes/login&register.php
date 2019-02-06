@@ -11,9 +11,15 @@
 		$result =$users->loginuser($email,$pwd);
 		if ($result) {
 			// $msg = "Success";
+
 			header('location:home.php');
 		}else{
-			$msg = "Failed";
+			// $msg = "Login failed, Email or Pasword Incorrect!";
+			echo '<script>swal({	
+			icon: "error",
+			title: "Login failed!",
+			text: "Email or Pasword Incorrect!",
+			type: "danger"});</script>';
 		}
 	}
 
@@ -109,8 +115,9 @@
 <div class="container text-center">
 	
 	<div class="form-group bg-white" id="login">
-	  <h2> LOGIN <p id="msgtxt"><!-- <?php  echo $msg; ?>  --></p></h2>
+	  <h2> LOGIN <p id="msgtxt"></p></h2>
 	  <form action="" method="post" name="login">
+	
 	    <div class="form-group">
 	      <label for="email" class="text-left">Email:
 	      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"></label>
