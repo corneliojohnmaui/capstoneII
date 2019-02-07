@@ -41,6 +41,13 @@ if (isset($_POST['save'])) {
 
   $result = $users->savedata("company_info",$arrayname);
  //JOB DETAILS
+  $display_ad = $_POST['display_ad'];
+  if (empty($display_ad)) {
+    $display_ad = 'false';
+  }else{
+    $display_ad = 'true';
+  }
+
   $arrayname2 = array("id_user"=> $userid,
         "position_title"=>addslashes($_POST['pos_title']),
         "employment_type"=>addslashes($_POST['employ_type']),
@@ -48,7 +55,7 @@ if (isset($_POST['save'])) {
         "work_location"=>addslashes($_POST['work_loc']),
         "month_sal_min"=>$_POST['mot_sal_min'],
         "month_sal_min"=>$_POST['mot_sal_max'],
-        "display_ad"=>$_POST['display_ad'],
+        "display_ad"=>$display_ad,
         "specialization_jb"=>addslashes($_POST['job_speci']));
 
   $result2 = $users->savedata("job_details",$arrayname2);
@@ -61,23 +68,49 @@ if (isset($_POST['save'])) {
         "skills"=>addslashes($_POST['skills']));
     $result3 = $users->savedata("job_requirements",$arrayname3);
 //JOB DESCRIPTION
-      $arrayname4 = array(
+    $arrayname4 = array(
         "id_user"=> $userid,
         "job_desc"=>addslashes($_POST['jobdesc']));
     $result4 = $users->savedata("job_description",$arrayname4);
 
+//fetch last ID 
+    $result5 = $users->fetchdataoflastid(" max(id_jobdesc)+1 AS jdes,max(id_jobreq)+1 AS jr,max(id_jobdet)+1 AS jdet FROM job_requirements,job_description,job_details");
+    foreach ($result5 as $res) {
+      echo $id_req = $res['jr'];
+      echo $id_det = $res['jdet'];
+       echo $id_des = $res['jdes'];
+   
+    
+//save fetch id's to job_post tbl
+    $arrayname5 = array(
+        "id_user"=> $userid,
+        "id_description_jp"=>$id_des,
+        "id_details_jp"=>$id_det, 
+        "id_requirements_jp"=>$id_req,
+        "status"=>"pending");
+
+    $result6 = $users->savedata("job_post",$arrayname5);
+     }
+//UPDATE USERS STATUS
+  $where = array('id_users'=> $userid);
+  $fields = array('status'=>'active');
+  $result7 = $users->updatedata("users",$where,$fields);
 
   
   if ($result && $result2 && $result3 && $result4 ) {
-    echo '<script>swal({  
-      icon: "success",
-      title: "Done Creating Profile And Job Ad",
-      
-      type: "success"}).then(okay => {
-      if (okay) {
-      window.location.href = "home.php";
+
+      if ($result6 && $result7) {
+          echo '<script>swal({  
+          icon: "success",
+          title: "Done Creating Profile And Job Ad",
+          
+          type: "success"}).then(okay => {
+          if (okay) {
+          window.location.href = "home.php";
+          }
+          });</script>';
       }
-      });</script>';
+  
 
     // header('location:myprofile.php?msg=success');
   }else{

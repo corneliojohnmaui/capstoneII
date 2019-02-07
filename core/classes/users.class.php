@@ -65,7 +65,11 @@ class Users extends DbConnection
 		$_SESSION['login'] = FALSE;
 		session_destroy();
 	}
+// SELECT * FROM job_post jp LEFT JOIN job_requirements jr ON jr.id_jobreq = jp.id_requirements_jp LEFT JOIN job_details jdt ON jdt.id_jobdet = jp.id_details_jp LEFT JOIN job_description jds ON jds.id_jobdesc = jp.id_description_jp WHERE jp.id_user ='12' THIS ONE TRUE
 
+	// SELECT * from job_requirements jr,job_details jdt ,job_description jds WHERE jr.id_user = '10' AND jdt.id_user = '10' AND jds.id_user = '10'
+
+	// SELECT * FROM job_post jp LEFT JOIN job_requirements jr ON jr.id_user = jp.id_user LEFT JOIN job_details jdt ON jdt.id_user = jp.id_user LEFT JOIN job_description jds ON jds.id_user = jp.id_user WHERE jp.id_user ='10'
 	public function savedata($table,$fields)
 	{
 		$sql ="";
@@ -73,7 +77,7 @@ class Users extends DbConnection
 		$sql .=" (".implode(",",array_keys($fields)).") VALUES ";
 		$sql .="('".implode("','",array_values($fields))."')";
 		// print_r($fields);
-		// echo $sql;
+		echo $sql;
 		// print_r($fields);
 		$query =mysqli_query($this->conn,$sql);
 		// echo $sql;
@@ -133,6 +137,22 @@ class Users extends DbConnection
 			}
 			// echo $sql;
 	}
+	public function fetchdataoflastid($table){
+
+			$sql = " SELECT ".$table;
+			$array = array();
+			echo $sql;
+			$query =mysqli_query($this->conn,$sql);
+
+			// $countrow = $query->num_rows;
+			
+			while ($row = mysqli_fetch_assoc($query)) {
+				$array[] =$row;
+			}
+			return $array;
+
+	}
+
 
 	
 }
